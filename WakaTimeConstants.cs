@@ -27,7 +27,7 @@ namespace WakaTime
 
         internal static Func<string> LatestWakaTimeCliVersion = () =>
         {
-            var regex = new Regex(@"(__version_info__ = )(\(( ?\'[0-9]\'\,?){3}\))");
+            var regex = new Regex(@"(__version_info__ = )(\(( ?\'[0-9]+\'\,?){3}\))");
 
             var client = new WebClient { Proxy = WakaTimePackage.GetProxy() };
 
@@ -39,7 +39,7 @@ namespace WakaTime
                 if (match.Success)
                 {
                     var grp1 = match.Groups[2];
-                    var regexVersion = new Regex("([0-9])");
+                    var regexVersion = new Regex("([0-9]+)");
                     var match2 = regexVersion.Matches(grp1.Value);
                     return string.Format("{0}.{1}.{2}", match2[0].Value, match2[1].Value, match2[2].Value);
                 }
